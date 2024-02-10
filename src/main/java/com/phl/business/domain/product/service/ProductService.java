@@ -1,4 +1,8 @@
-package com.phl.business.domain.product;
+package com.phl.business.domain.product.service;
+
+import com.phl.business.domain.product.dto.ProductRequestDto;
+import com.phl.business.domain.product.dto.ProductResponseDto;
+import com.phl.business.domain.product.model.Product;
 
 import java.util.List;
 

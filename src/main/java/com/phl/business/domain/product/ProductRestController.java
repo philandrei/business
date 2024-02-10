@@ -1,8 +1,9 @@
 package com.phl.business.domain.product;
 
-import com.phl.business.domain.product.Product;
-import com.phl.business.domain.product.ProductRequestDto;
-import com.phl.business.domain.product.ProductResponseDto;
+import com.phl.business.domain.product.dto.ProductRequestDto;
+import com.phl.business.domain.product.dto.ProductResponseDto;
+import com.phl.business.domain.product.model.Product;
+import com.phl.business.domain.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

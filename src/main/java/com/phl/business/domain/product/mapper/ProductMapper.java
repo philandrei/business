@@ -1,7 +1,8 @@
-package com.phl.business.domain.product;
+package com.phl.business.domain.product.mapper;
 
-import com.phl.business.domain.product.Product;
-import com.phl.business.domain.product.ProductResponseDto;
+import com.phl.business.domain.product.dto.ProductRequestDto;
+import com.phl.business.domain.product.dto.ProductResponseDto;
+import com.phl.business.domain.product.model.Product;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.phl.business.domain.product;
+package com.phl.business.domain.product.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,8 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class ProductResponseDto {
-    private String uuid;
+public class ProductRequestDto {
 
     private String name;
 

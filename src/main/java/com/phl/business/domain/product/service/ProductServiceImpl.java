@@ -1,5 +1,10 @@
-package com.phl.business.domain.product;
+package com.phl.business.domain.product.service;
 
+import com.phl.business.domain.product.dto.ProductRequestDto;
+import com.phl.business.domain.product.dto.ProductResponseDto;
+import com.phl.business.domain.product.mapper.ProductMapper;
+import com.phl.business.domain.product.model.Product;
+import com.phl.business.domain.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
