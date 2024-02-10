@@ -23,15 +23,15 @@ public class StoreRestController {
     }
 
     @GetMapping
-    public List<Store> getStores() {
+    public List<Store> getAllStores() {
         return storeService.getAllStores();
     }
 
     @GetMapping("/{uuid}")
     public Store getStore(@PathVariable String uuid) {
-        return storeService.getStoreByUuid(uuid);
+        return storeService.getOneStore(uuid);
     }
 
    @DeleteMapping("/{uuid}")
-    public String deleteStore(@PathVariable String uuid){return storeService.deleteStoreByUuid(uuid);}
+    public String deleteStore(@PathVariable String uuid){return storeService.deleteStore(uuid);}
 }

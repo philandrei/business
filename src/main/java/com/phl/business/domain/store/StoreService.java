@@ -8,9 +8,9 @@ public interface StoreService {
 
     List<Store> getAllStores();
 
-    Store getStoreByUuid(String uuid);
+    Store getOneStore(String uuid);
 
-    String deleteStoreByUuid(String uuid);
+    String deleteStore(String uuid);
 
     Store updateStore(String uuid,Store Store);
 }

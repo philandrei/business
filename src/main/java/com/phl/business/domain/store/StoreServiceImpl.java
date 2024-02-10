@@ -21,12 +21,12 @@ public class StoreServiceImpl implements StoreService{
     }
 
     @Override
-    public Store getStoreByUuid(String uuid) {
+    public Store getOneStore(String uuid) {
         return storeRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
-    public String deleteStoreByUuid(String uuid) {
+    public String deleteStore(String uuid) {
         storeRepository.deleteById(uuid);
         return uuid;
     }
