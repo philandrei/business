@@ -31,7 +31,7 @@ public class Customer implements Serializable {
 
     private String mobileNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Store store;
 
     public Customer updateFrom(CustomerRequestDto customerRequestDto){
