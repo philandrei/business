@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.Serializable;
 
@@ -29,8 +28,8 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    public User updateFrom(UserDto userDto){
-        this.username = userDto.getUsername();
+    public User updateFrom(UserRequestDto userRequestDto){
+        this.username = userRequestDto.getUsername();
         return this;
     }
 

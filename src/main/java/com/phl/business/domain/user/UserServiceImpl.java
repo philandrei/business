@@ -1,5 +1,7 @@
 package com.phl.business.domain.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,9 @@ import java.util.NoSuchElementException;
 @Service
 public class UserServiceImpl implements UserService {
 
+    static final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -16,32 +21,44 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        User user = userMapper.userDtoToUser(userDto);
+    public UserResponseDto createUser(UserRequestDto userRequestDto) {
+        LOG.info("[createUser]: Start");
+        User user = userMapper.userRequestDtoToUser(userRequestDto);
+        LOG.info("[createUser]: Saving User");
         userRepository.save(user);
-        return userMapper.userToUserDto(user);
+        LOG.info("[createUser]: Done");
+        return userMapper.userToUserResponseDto(user);
     }
 
     @Override
-    public UserDto updateUser(String uuid,UserDto userDto) {
+    public UserResponseDto updateUser(String uuid, UserRequestDto userRequestDto) {
+        LOG.info("[updateUser]: Start");
         User existingUser = userRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
-        existingUser.updateFrom(userDto);
-        return userMapper.userToUserDto(existingUser);
+        existingUser.updateFrom(userRequestDto);
+        LOG.info("[updateUser]: Saving User");
+        userRepository.save(existingUser);
+        LOG.info("[updateUser]: Done");
+        return userMapper.userToUserResponseDto(existingUser);
     }
 
     @Override
     public User getOneUser(String uuid) {
-        return userRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
+        LOG.info("[getOneUser]: Start");
+        return userRepository.findById(uuid).orElse(null);
     }
 
     @Override
     public List<User> getAllUsers() {
+        LOG.info("[getAllUsers]: Start");
         return userRepository.findAll();
     }
 
     @Override
     public String deleteUser(String uuid) {
+        LOG.info("[deleteUser]: Start");
+        LOG.info("[deleteUser]: Deleting User: "+uuid);
         userRepository.deleteById(uuid);
+        LOG.info("[deleteUser]: Done");
         return uuid;
     }
 }

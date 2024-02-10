@@ -10,20 +10,28 @@ public class UserMapper {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public User userDtoToUser(UserDto userDto){
+    public User userRequestDtoToUser(UserRequestDto userRequestDto){
         User user = User.builder()
-                            .username(userDto.getUsername())
-                            .password(passwordEncoder.encode(userDto.getPassword()))
+                            .username(userRequestDto.getUsername())
+                            .password(passwordEncoder.encode(userRequestDto.getPassword()))
                             .build();
 
         return user;
     }
 
-    public UserDto userToUserDto(User user){
-        UserDto userDto = UserDto.builder()
+    public UserRequestDto userToUserDto(User user){
+        UserRequestDto userRequestDto = UserRequestDto.builder()
                                   .password(user.getPassword())
                                   .username(user.getUsername())
                                   .build();
-        return userDto;
+        return userRequestDto;
+    }
+
+    public UserResponseDto userToUserResponseDto(User user){
+        UserResponseDto userResponseDto = UserResponseDto.builder()
+                                                  .uuid(user.getUuid())
+                                                  .username(user.getUsername())
+                                                  .build();
+        return userResponseDto;
     }
 }
