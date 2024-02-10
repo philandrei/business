@@ -1,5 +1,8 @@
-package com.phl.business.domain.customer;
+package com.phl.business.domain.customer.mapper;
 
+import com.phl.business.domain.customer.dto.CustomerRequestDto;
+import com.phl.business.domain.customer.dto.CustomerResponseDto;
+import com.phl.business.domain.customer.model.Customer;
 import org.springframework.stereotype.Component;
 
 @Component

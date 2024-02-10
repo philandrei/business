@@ -1,4 +1,4 @@
-package com.phl.business.domain.customer;
+package com.phl.business.domain.customer.dto;
 
 import lombok.Builder;
 import lombok.Data;
