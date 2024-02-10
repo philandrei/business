@@ -1,5 +1,10 @@
-package com.phl.business.domain.store;
+package com.phl.business.domain.store.service;
 
+import com.phl.business.domain.store.dto.StoreRequestDto;
+import com.phl.business.domain.store.dto.StoreResponseDto;
+import com.phl.business.domain.store.mapper.StoreMapper;
+import com.phl.business.domain.store.model.Store;
+import com.phl.business.domain.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

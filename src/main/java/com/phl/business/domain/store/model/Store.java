@@ -1,6 +1,7 @@
-package com.phl.business.domain.store;
+package com.phl.business.domain.store.model;
 
-import com.phl.business.domain.product.Product;
+import com.phl.business.domain.product.model.Product;
+import com.phl.business.domain.store.dto.StoreRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;

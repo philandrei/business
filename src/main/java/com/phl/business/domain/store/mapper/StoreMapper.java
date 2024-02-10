@@ -1,5 +1,8 @@
-package com.phl.business.domain.store;
+package com.phl.business.domain.store.mapper;
 
+import com.phl.business.domain.store.dto.StoreRequestDto;
+import com.phl.business.domain.store.dto.StoreResponseDto;
+import com.phl.business.domain.store.model.Store;
 import org.springframework.stereotype.Component;
 
 @Component

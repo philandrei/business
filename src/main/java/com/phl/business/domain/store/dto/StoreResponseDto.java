@@ -1,4 +1,4 @@
-package com.phl.business.domain.store;
+package com.phl.business.domain.store.dto;
 
 import lombok.Builder;
 import lombok.Data;

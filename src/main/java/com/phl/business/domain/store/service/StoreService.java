@@ -1,4 +1,8 @@
-package com.phl.business.domain.store;
+package com.phl.business.domain.store.service;
+
+import com.phl.business.domain.store.dto.StoreRequestDto;
+import com.phl.business.domain.store.dto.StoreResponseDto;
+import com.phl.business.domain.store.model.Store;
 
 import java.util.List;
 
