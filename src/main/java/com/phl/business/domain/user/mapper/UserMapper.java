@@ -1,5 +1,8 @@
-package com.phl.business.domain.user;
+package com.phl.business.domain.user.mapper;
 
+import com.phl.business.domain.user.dto.UserRequestDto;
+import com.phl.business.domain.user.dto.UserResponseDto;
+import com.phl.business.domain.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

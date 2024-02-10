@@ -1,6 +1,7 @@
-package com.phl.business.domain.user;
+package com.phl.business.domain.user.model;
 
-import com.phl.business.domain.customer.Customer;
+import com.phl.business.domain.customer.model.Customer;
+import com.phl.business.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

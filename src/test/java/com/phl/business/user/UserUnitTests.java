@@ -1,11 +1,12 @@
 package com.phl.business.user;
 
-import com.phl.business.domain.user.*;
+import com.phl.business.domain.user.dto.UserRequestDto;
+import com.phl.business.domain.user.dto.UserResponseDto;
+import com.phl.business.domain.user.model.User;
+import com.phl.business.domain.user.service.UserService;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

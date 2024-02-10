@@ -1,4 +1,4 @@
-package com.phl.business.domain.user;
+package com.phl.business.domain.user.dto;
 
 import lombok.Builder;
 import lombok.Data;
