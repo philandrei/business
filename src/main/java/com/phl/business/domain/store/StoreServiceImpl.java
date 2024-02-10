@@ -10,9 +10,21 @@ import java.util.NoSuchElementException;
 public class StoreServiceImpl implements StoreService{
     @Autowired
     private StoreRepository storeRepository;
+    @Autowired
+    private StoreMapper storeMapper;
     @Override
-    public Store saveStore(Store Store) {
-        return storeRepository.save(Store);
+    public StoreResponseDto saveStore(StoreRequestDto storeRequestDto) {
+        Store store = storeMapper.storeDtoToStore(storeRequestDto);
+        storeRepository.save(store);
+        return storeMapper.storeToStoreResponseDto(store);
+    }
+
+    @Override
+    public StoreResponseDto updateStore(String uuid,StoreRequestDto storeRequestDto) {
+        Store existingStore = storeRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
+        existingStore.updateFrom(storeRequestDto);
+        storeRepository.save(existingStore);
+        return storeMapper.storeToStoreResponseDto(existingStore);
     }
 
     @Override
@@ -31,11 +43,5 @@ public class StoreServiceImpl implements StoreService{
         return uuid;
     }
 
-    @Override
-    public Store updateStore(String uuid,Store store) {
-        Store existingStore = storeRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
-        existingStore.setName(store.getName());
-        storeRepository.save(existingStore);
-        return existingStore;
-    }
+
 }

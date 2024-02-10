@@ -4,13 +4,10 @@ import java.util.List;
 
 public interface StoreService {
 
-    Store saveStore(Store Store);
-
+    StoreResponseDto saveStore(StoreRequestDto Store);
+    StoreResponseDto updateStore(String uuid,StoreRequestDto Store);
     List<Store> getAllStores();
-
     Store getOneStore(String uuid);
-
     String deleteStore(String uuid);
 
-    Store updateStore(String uuid,Store Store);
 }

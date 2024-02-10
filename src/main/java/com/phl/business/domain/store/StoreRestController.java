@@ -13,13 +13,13 @@ public class StoreRestController {
     StoreService storeService;
 
     @PostMapping
-    public Store createStore(@RequestBody Store store) {
-        return storeService.saveStore(store);
+    public StoreResponseDto createStore(@RequestBody StoreRequestDto storeRequestDto) {
+        return storeService.saveStore(storeRequestDto);
     }
 
     @PutMapping("/{uuid}")
-    public Store updateStore(@PathVariable String uuid,@RequestBody Store store){
-        return storeService.updateStore(uuid,store);
+    public StoreResponseDto updateStore(@PathVariable String uuid,@RequestBody StoreRequestDto storeRequestDto){
+        return storeService.updateStore(uuid,storeRequestDto);
     }
 
     @GetMapping
