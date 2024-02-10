@@ -26,7 +26,7 @@ public class User implements Serializable {
 
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Customer customer;
 
     public User updateFrom(UserRequestDto userRequestDto){
