@@ -11,8 +11,12 @@ public class CustomerSerivceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerMapper customerMapper;
     @Override
-    public Customer createCustomer(Customer customer) {
+    public Customer createCustomer(CustomerDto customerDto) {
+        Customer customer =customerMapper.customerDtoToCustomer(customerDto);
     return customerRepository.save(customer);
     }
 
@@ -33,11 +37,9 @@ public class CustomerSerivceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomer(String uuid,Customer customer) {
+    public Customer updateCustomer(String uuid,CustomerDto customerDto) {
         Customer existingCustomer = customerRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
-        existingCustomer.setEmail(customer.getEmail());
-        existingCustomer.setLastName(customer.getLastName());
-        existingCustomer.setFirstName(customer.getFirstName());
+        existingCustomer.updateFrom(customerDto);
         customerRepository.save(existingCustomer);
         return existingCustomer;
     }

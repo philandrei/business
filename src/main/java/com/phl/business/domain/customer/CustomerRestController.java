@@ -14,13 +14,13 @@ public class CustomerRestController {
     CustomerService customerService;
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerService.createCustomer(customer);
+    public Customer createCustomer(@RequestBody CustomerDto customerDto) {
+        return customerService.createCustomer(customerDto);
     }
 
     @PutMapping("/{uuid}")
-    public Customer updateCustomer(@PathVariable String uuid,@RequestBody Customer customer){
-        return customerService.updateCustomer(uuid,customer);
+    public Customer updateCustomer(@PathVariable String uuid,@RequestBody CustomerDto customerDto){
+        return customerService.updateCustomer(uuid,customerDto);
     }
 
     @GetMapping
