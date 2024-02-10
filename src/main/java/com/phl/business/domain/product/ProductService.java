@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ProductService {
 
-    ProductDto createProduct(ProductDto productDto);
-    ProductDto updateProduct(String uuid, ProductDto productDto);
+    ProductResponseDto createProduct(ProductRequestDto productRequestDto);
+    ProductResponseDto updateProduct(String uuid, ProductRequestDto productRequestDto);
     List<Product> getAllProducts();
     Product getOneProduct(String uuid);
     String deleteProduct(String uuid);

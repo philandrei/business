@@ -15,17 +15,17 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = productMapper.productDtoToProduct(productDto);
+    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+        Product product = productMapper.productDtoToProduct(productRequestDto);
         productRepository.save(product);
-        return productMapper.productToProductDto(product);
+        return productMapper.productToProductResponseDto(product);
     }
 
     @Override
-    public ProductDto updateProduct(String uuid,ProductDto productDto) {
+    public ProductResponseDto updateProduct(String uuid, ProductRequestDto productRequestDto) {
         Product existingProduct = productRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
-        existingProduct.updateFrom(productDto);
-        return productMapper.productToProductDto(existingProduct);
+        existingProduct.updateFrom(productRequestDto);
+        return productMapper.productToProductResponseDto(existingProduct);
     }
 
     @Override

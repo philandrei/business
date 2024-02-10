@@ -33,11 +33,11 @@ public class Product implements Serializable {
     @JoinColumn(name = "store_uuid")
     private Store store;
 
-    public Product updateFrom(ProductDto productDto){
-        this.name = productDto.getName();
-        this.description = productDto.getDescription();
-        this.price = productDto.getPrice();
-        this.quantity = productDto.getQuantity();
+    public Product updateFrom(ProductRequestDto productRequestDto){
+        this.name = productRequestDto.getName();
+        this.description = productRequestDto.getDescription();
+        this.price = productRequestDto.getPrice();
+        this.quantity = productRequestDto.getQuantity();
         return this;
     }
 

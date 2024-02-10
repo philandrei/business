@@ -1,5 +1,7 @@
 package com.phl.business.domain.product;
 
+import com.phl.business.domain.product.Product;
+import com.phl.business.domain.product.ProductResponseDto;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -9,23 +11,34 @@ import org.springframework.stereotype.Component;
 @Builder
 public class ProductMapper {
 
-    public Product productDtoToProduct(ProductDto productDto){
+    public Product productDtoToProduct(ProductRequestDto productRequestDto) {
         Product product = Product.builder()
-                                  .description(productDto.getDescription())
-                                  .name(productDto.getName())
-                                  .price(productDto.getPrice())
-                                  .quantity(productDto.getQuantity())
+                                  .description(productRequestDto.getDescription())
+                                  .name(productRequestDto.getName())
+                                  .price(productRequestDto.getPrice())
+                                  .quantity(productRequestDto.getQuantity())
                                   .build();
         return product;
     }
 
-    public ProductDto productToProductDto(Product product){
-        ProductDto productDto = ProductDto.builder()
-                                        .description(product.getDescription())
-                                        .name(product.getName())
-                                        .price(product.getPrice())
-                                        .quantity(product.getQuantity())
-                                        .build();
-        return productDto;
+    public ProductRequestDto productToProductDto(Product product) {
+        ProductRequestDto productRequestDto = ProductRequestDto.builder()
+                                                      .description(product.getDescription())
+                                                      .name(product.getName())
+                                                      .price(product.getPrice())
+                                                      .quantity(product.getQuantity())
+                                                      .build();
+        return productRequestDto;
+    }
+
+    public ProductResponseDto productToProductResponseDto(Product product) {
+        ProductResponseDto productResponseDto = ProductResponseDto.builder()
+                                                        .uuid(product.getUuid())
+                                                        .description(product.getDescription())
+                                                        .name(product.getName())
+                                                        .price(product.getPrice())
+                                                        .quantity(product.getQuantity())
+                                                        .build();
+        return productResponseDto;
     }
 }
