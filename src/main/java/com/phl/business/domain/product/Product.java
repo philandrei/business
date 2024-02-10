@@ -38,6 +38,7 @@ public class Product implements Serializable {
         this.description = productDto.getDescription();
         this.price = productDto.getPrice();
         this.quantity = productDto.getQuantity();
+        return this;
     }
 
 
