@@ -33,11 +33,11 @@ public class Customer implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private Store store;
 
-    public Customer updateFrom(CustomerDto customerDto){
-        this.firstName = customerDto.getFirstName();
-        this.lastName = customerDto.getLastName();
-        this.email = customerDto.getEmail();
-        this.mobileNumber = customerDto.getMobileNumber();
+    public Customer updateFrom(CustomerRequestDto customerRequestDto){
+        this.firstName = customerRequestDto.getFirstName();
+        this.lastName = customerRequestDto.getLastName();
+        this.email = customerRequestDto.getEmail();
+        this.mobileNumber = customerRequestDto.getMobileNumber();
         return this;
     }
 

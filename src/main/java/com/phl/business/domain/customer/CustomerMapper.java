@@ -5,24 +5,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerMapper {
 
-    public Customer customerDtoToCustomer(CustomerDto customerDto) {
+    public Customer customerDtoToCustomer(CustomerRequestDto customerRequestDto) {
         Customer customer = Customer.builder()
-                                    .email(customerDto.getEmail())
-                                    .mobileNumber(customerDto.getMobileNumber())
-                                    .firstName(customerDto.getFirstName())
-                                    .lastName(customerDto.getLastName())
+                                    .email(customerRequestDto.getEmail())
+                                    .mobileNumber(customerRequestDto.getMobileNumber())
+                                    .firstName(customerRequestDto.getFirstName())
+                                    .lastName(customerRequestDto.getLastName())
                                     .build();
         return customer;
     }
 
-    public CustomerDto customerToCustomerDto(Customer customer){
-        CustomerDto customerDto = CustomerDto.builder()
-                                          .email(customer.getEmail())
-                                          .firstName(customer.getFirstName())
-                                          .lastName(customer.getLastName())
-                                          .mobileNumber(customer.getMobileNumber())
-                                          .build();
+    public CustomerRequestDto customerToCustomerDto(Customer customer) {
+        CustomerRequestDto customerRequestDto = CustomerRequestDto.builder()
+                                                        .email(customer.getEmail())
+                                                        .firstName(customer.getFirstName())
+                                                        .lastName(customer.getLastName())
+                                                        .mobileNumber(customer.getMobileNumber())
+                                                        .build();
+        return customerRequestDto;
+    }
 
-        return customerDto;
+    public CustomerResponseDto customerToCustomerResponseDto(Customer customer) {
+        CustomerResponseDto customerResponseDto = CustomerResponseDto.builder()
+                                                          .uuid(customer.getUuid())
+                                                          .email(customer.getEmail())
+                                                          .firstName(customer.getFirstName())
+                                                          .lastName(customer.getLastName())
+                                                          .mobileNumber(customer.getMobileNumber())
+                                                          .uuid(customer.getUuid())
+                                                          .build();
+        return customerResponseDto;
     }
 }

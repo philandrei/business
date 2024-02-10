@@ -14,10 +14,20 @@ public class CustomerSerivceImpl implements CustomerService {
 
     @Autowired
     private CustomerMapper customerMapper;
+
     @Override
-    public Customer createCustomer(CustomerDto customerDto) {
-        Customer customer =customerMapper.customerDtoToCustomer(customerDto);
-    return customerRepository.save(customer);
+    public CustomerResponseDto createCustomer(CustomerRequestDto customerRequestDto) {
+        Customer customer = customerMapper.customerDtoToCustomer(customerRequestDto);
+        customerRepository.save(customer);
+        return customerMapper.customerToCustomerResponseDto(customer);
+    }
+
+    @Override
+    public CustomerResponseDto updateCustomer(String uuid, CustomerRequestDto customerRequestDto) {
+        Customer existingCustomer = customerRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
+        existingCustomer.updateFrom(customerRequestDto);
+        customerRepository.save(existingCustomer);
+        return customerMapper.customerToCustomerResponseDto(existingCustomer);
     }
 
     @Override
@@ -32,15 +42,9 @@ public class CustomerSerivceImpl implements CustomerService {
 
     @Override
     public String deleteCustomer(String uuid) {
-         customerRepository.deleteById(uuid);
-         return uuid;
+        customerRepository.deleteById(uuid);
+        return uuid;
     }
 
-    @Override
-    public Customer updateCustomer(String uuid,CustomerDto customerDto) {
-        Customer existingCustomer = customerRepository.findById(uuid).orElseThrow(NoSuchElementException::new);
-        existingCustomer.updateFrom(customerDto);
-        customerRepository.save(existingCustomer);
-        return existingCustomer;
-    }
+
 }

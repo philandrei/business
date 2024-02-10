@@ -5,7 +5,8 @@ import java.util.List;
 
 public interface CustomerService {
 
-    Customer createCustomer(CustomerDto customer);
+    CustomerResponseDto createCustomer(CustomerRequestDto customer);
+    CustomerResponseDto updateCustomer(String uuid, CustomerRequestDto customerRequestDto);
 
     List<Customer> getAllCustomers();
 
@@ -13,6 +14,5 @@ public interface CustomerService {
 
     String deleteCustomer(String uuid);
 
-    Customer updateCustomer(String uuid,CustomerDto customerDto);
 
 }

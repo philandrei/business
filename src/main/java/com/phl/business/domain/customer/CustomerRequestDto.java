@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CustomerDto {
+public class CustomerRequestDto {
 
     private String firstName;
 

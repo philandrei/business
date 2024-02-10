@@ -3,7 +3,6 @@ package com.phl.business.domain.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,13 +13,13 @@ public class CustomerRestController {
     CustomerService customerService;
 
     @PostMapping
-    public Customer createCustomer(@RequestBody CustomerDto customerDto) {
-        return customerService.createCustomer(customerDto);
+    public CustomerResponseDto createCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
+        return customerService.createCustomer(customerRequestDto);
     }
 
     @PutMapping("/{uuid}")
-    public Customer updateCustomer(@PathVariable String uuid,@RequestBody CustomerDto customerDto){
-        return customerService.updateCustomer(uuid,customerDto);
+    public CustomerResponseDto updateCustomer(@PathVariable String uuid,@RequestBody CustomerRequestDto customerRequestDto){
+        return customerService.updateCustomer(uuid, customerRequestDto);
     }
 
     @GetMapping
