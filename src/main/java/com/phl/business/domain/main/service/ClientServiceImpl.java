@@ -17,6 +17,7 @@ import com.phl.business.domain.store.repository.StoreRepository;
 import com.phl.business.domain.user.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,45 +44,12 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
     @Autowired
     ProductMapper productMapper;
 
-    @Override
-    public ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto) {
-        log.info("[addStore] Start");
-        String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
-        log.info("[addStore] Mapping StoreRequestDto to Store Model");
-        Store store = storeMapper.storeDtoToStore(storeRequestDto);
-        log.info("[addStore] Adding Store to client");
-        client.addStore(store);
-        log.info("[addStore] Saving client with new Store");
-        clientRepository.save(client);
-        log.info("[addStore] Done");
-        return buildSuccess(client);
-    }
 
     @Override
-    public ResponseEntity<RestResponse> addProducts(String storeId, List<ProductRequestDto> productRequestDtos) {
-        log.info("[addProducts] Start");
+    public ResponseEntity<RestResponse> getAllStores() {
         String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
-        Store store = client.getStore().stream().filter(store1 -> store1.getUuid().equals(storeId)).findFirst().orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
-        log.info("[addProducts] Mapping List of ProductRequestDto to List of Product Model");
-        List<Product> products = productRequestDtos.stream().map(productRequestDto -> productMapper.productDtoToProduct(productRequestDto)).toList();
-        log.info("[addProducts] Adding Product to Store");
-        products.forEach(store::addProduct);
-        log.info("[addProducts] Saving Store with new Product/s");
-        storeRepository.save(store);
-        log.info("[addProducts] Done");
-        return buildSuccess(store);
-    }
-
-    private User getUser() {
-        AuthUserDetails authUserDetails = (AuthUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return authUserDetails.getUser();
-
-    }
-
-    private String getClientId() {
-        User user = getUser();
-        return user.getClient().getUuid();
+        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid client ID"));
+        List<Store> stores = client.getStore();
+        return buildSuccess(stores);
     }
 }
