@@ -94,7 +94,7 @@ public class JWTUtil {
 
 
     public String getKeyFromToken(String signingKey, String token, String key) {
-        Claims claims = getClaims(token, signingKey);
+        Claims claims = getClaims(signingKey, token);
         return claims.get(key).toString();
     }
 
