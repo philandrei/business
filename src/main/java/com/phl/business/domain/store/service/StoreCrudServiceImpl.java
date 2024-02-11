@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class StoreServiceImpl implements StoreService{
+public class StoreCrudServiceImpl implements StoreCrudService {
     @Autowired
     private StoreRepository storeRepository;
     @Autowired

@@ -6,7 +6,7 @@ import com.phl.business.domain.store.model.Store;
 
 import java.util.List;
 
-public interface StoreService {
+public interface StoreCrudService {
 
     StoreResponseDto saveStore(StoreRequestDto Store);
     StoreResponseDto updateStore(String uuid,StoreRequestDto Store);
