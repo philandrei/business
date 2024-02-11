@@ -1,5 +1,6 @@
 package com.phl.business.domain.user.model;
 
+import com.phl.business.domain.authentication.AuthUserDetails;
 import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
@@ -32,6 +33,10 @@ public class User implements Serializable {
     public User updateFrom(UserRequestDto userRequestDto){
         this.username = userRequestDto.getUsername();
         return this;
+    }
+
+    public AuthUserDetails toAuthUserDetails(){
+        return new AuthUserDetails(this);
     }
 
 }
