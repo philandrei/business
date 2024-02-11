@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ClientService {
 
-    ResponseEntity<RestResponse> addStore(String clientId, StoreRequestDto storeRequestDto);
-    ResponseEntity<RestResponse> addProducts(String clientId, String storeId, List<ProductRequestDto> productRequestDtos);
+    ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto);
+    ResponseEntity<RestResponse> addProducts(String storeId, List<ProductRequestDto> productRequestDtos);
 }

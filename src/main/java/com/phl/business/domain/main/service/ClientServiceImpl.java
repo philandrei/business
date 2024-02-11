@@ -1,5 +1,8 @@
 package com.phl.business.domain.main.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.phl.business.domain.authentication.AuthUserDetails;
 import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RestResponse;
@@ -11,12 +14,18 @@ import com.phl.business.domain.store.dto.StoreRequestDto;
 import com.phl.business.domain.store.mapper.StoreMapper;
 import com.phl.business.domain.store.model.Store;
 import com.phl.business.domain.store.repository.StoreRepository;
+import com.phl.business.domain.user.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @Service
@@ -35,8 +44,9 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
     ProductMapper productMapper;
 
     @Override
-    public ResponseEntity<RestResponse> addStore(String clientId, StoreRequestDto storeRequestDto) {
+    public ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto) {
         log.info("[addStore] Start");
+        String clientId = getClientId();
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
         log.info("[addStore] Mapping StoreRequestDto to Store Model");
         Store store = storeMapper.storeDtoToStore(storeRequestDto);
@@ -49,8 +59,9 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
     }
 
     @Override
-    public ResponseEntity<RestResponse> addProducts(String clientId, String storeId, List<ProductRequestDto> productRequestDtos) {
+    public ResponseEntity<RestResponse> addProducts(String storeId, List<ProductRequestDto> productRequestDtos) {
         log.info("[addProducts] Start");
+        String clientId = getClientId();
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
         Store store = client.getStore().stream().filter(store1 -> store1.getUuid().equals(storeId)).findFirst().orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
         log.info("[addProducts] Mapping List of ProductRequestDto to List of Product Model");
@@ -61,5 +72,16 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
         storeRepository.save(store);
         log.info("[addProducts] Done");
         return buildSuccess(store);
+    }
+
+    private User getUser() {
+        AuthUserDetails authUserDetails = (AuthUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return authUserDetails.getUser();
+
+    }
+
+    private String getClientId() {
+        User user = getUser();
+        return user.getClient().getUuid();
     }
 }

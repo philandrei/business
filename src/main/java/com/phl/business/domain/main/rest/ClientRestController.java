@@ -18,15 +18,14 @@ public class ClientRestController {
     @Autowired
     ClientService clientService;
 
-    @PostMapping("/store/{clientId}")
-    public ResponseEntity<RestResponse> addStore(@PathVariable String clientId, @RequestBody StoreRequestDto storeRequestDto) {
-        return clientService.addStore(clientId, storeRequestDto);
+    @PostMapping("/store")
+    public ResponseEntity<RestResponse> addStore(@RequestBody StoreRequestDto storeRequestDto) {
+        return clientService.addStore(storeRequestDto);
     }
 
-    @PostMapping("/products/{clientId}/{storeId}")
-    public ResponseEntity<RestResponse> addProducts(@PathVariable String clientId,
-                                                    @PathVariable String storeId,
+    @PostMapping("/products/{storeId}")
+    public ResponseEntity<RestResponse> addProducts(@PathVariable String storeId,
                                                     @RequestBody List<ProductRequestDto> productRequestDtoList){
-        return clientService.addProducts(clientId,storeId,productRequestDtoList);
+        return clientService.addProducts(storeId,productRequestDtoList);
     }
 }
