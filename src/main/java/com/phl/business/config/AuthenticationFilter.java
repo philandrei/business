@@ -31,7 +31,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, MalformedJwtException {
-        if(request.getRequestURI().contains("/auth") || request.getRequestURI().contains("/nosession")){
+        if (request.getRequestURI().contains("/auth") || request.getRequestURI().contains("/nosession")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -40,7 +40,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            errorResponse(request,response,"Invalid access token",400);
+            errorResponse(request, response, "Invalid access token", 400);
             return;
         }
 
@@ -48,7 +48,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             jwt = authHeader.substring(7);
             username = authenticationService.getUsernameFromToken(jwt);
         } catch (Exception e) {
-            errorResponse(request,response,"Invalid access token",400);
+            errorResponse(request, response, "Invalid access token", 400);
             return;
         }
 
@@ -72,7 +72,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     }
 
-    private void errorResponse(HttpServletRequest request, HttpServletResponse response, String message,int status) throws IOException {
+    private void errorResponse(HttpServletRequest request, HttpServletResponse response, String message, int status) throws IOException {
         RestResponse restResponse = RestResponse.builder()
                                             .path(request.getRequestURI())
                                             .status(400)
