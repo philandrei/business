@@ -40,7 +40,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            errorResponse(request,response,"Invalid access token",400);
             return;
         }
 
