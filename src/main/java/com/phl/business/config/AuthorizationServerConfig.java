@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.net.http.HttpClient;
 
@@ -22,12 +24,18 @@ public class AuthorizationServerConfig {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private AuthenticationFilter authenticationFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests(request -> {
-            request.requestMatchers("/**").permitAll().anyRequest().authenticated();
-        }).build();
+        return httpSecurity.csrf(csrf -> csrf.disable())
+                       .authorizeHttpRequests(request -> {
+            request.requestMatchers(new AntPathRequestMatcher("/auth/**"),
+                            new AntPathRequestMatcher("/registrations/**"),
+                            new AntPathRequestMatcher("/nosession/**"))
+                    .permitAll().anyRequest().authenticated();
+        }).authenticationProvider(authenticationProvider()).addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
     @Bean
