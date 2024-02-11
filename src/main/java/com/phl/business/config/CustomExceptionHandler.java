@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 @RequiredArgsConstructor
@@ -35,7 +36,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                               = {AccessDeniedException.class})
     protected ResponseEntity<RestResponse> accessDeniedException(
             RuntimeException ex, WebRequest request) {
-        System.out.println(request);
         String bodyOfResponse = ex.getMessage();
         return responseOf(HttpStatus.FORBIDDEN, bodyOfResponse);
     }
@@ -44,6 +44,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<RestResponse> invalidJWTException(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();
         return responseOf(HttpStatus.BAD_REQUEST, bodyOfResponse);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    protected ResponseEntity<RestResponse> noSuchElementExepcetion(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        return responseOf(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
     @ExceptionHandler(HttpServerErrorException.InternalServerError.class)
