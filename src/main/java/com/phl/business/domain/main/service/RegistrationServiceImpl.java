@@ -1,7 +1,7 @@
 package com.phl.business.domain.main.service;
 
-import com.phl.business.domain.customer.model.Customer;
-import com.phl.business.domain.customer.repository.CustomerRepository;
+import com.phl.business.domain.client.model.Client;
+import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RegistrationRequest;
 import com.phl.business.domain.main.dto.RestResponse;
 import com.phl.business.domain.main.helper.RestHelper;
@@ -19,13 +19,13 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    CustomerRepository customerRepository;
+    ClientRepository clientRepository;
 
     @Autowired
     UserRepository userRepository;
     @Override
     public ResponseEntity<RestResponse> registration(RegistrationRequest registrationRequest) {
-        Customer customer = Customer.builder()
+        Client client = Client.builder()
                                     .firstName(registrationRequest.getFirstName())
                                     .lastName(registrationRequest.getLastName())
                                     .mobileNumber(registrationRequest.getMobileNumber())
@@ -34,7 +34,7 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
         User user = User.builder()
                             .username(registrationRequest.getUsername())
                             .password(passwordEncoder.encode(registrationRequest.getPassword()))
-                            .customer(customer)
+                            .client(client)
                             .build();
 
         userRepository.save(user);

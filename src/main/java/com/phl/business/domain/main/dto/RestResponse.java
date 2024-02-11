@@ -9,6 +9,7 @@ import java.util.Date;
 @Builder
 public class RestResponse {
     private Date timestamp;
+    private String path;
     private int status;
     private String message;
     private Object data;

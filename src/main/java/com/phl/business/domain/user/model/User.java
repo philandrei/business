@@ -1,6 +1,6 @@
 package com.phl.business.domain.user.model;
 
-import com.phl.business.domain.customer.model.Customer;
+import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String password;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Customer customer;
+    private Client client;
 
     public User updateFrom(UserRequestDto userRequestDto){
         this.username = userRequestDto.getUsername();

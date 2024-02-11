@@ -1,5 +1,6 @@
 package com.phl.business.domain.product.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.phl.business.domain.product.dto.ProductRequestDto;
 import com.phl.business.domain.store.model.Store;
 import jakarta.persistence.*;
@@ -20,6 +21,7 @@ import java.math.BigDecimal;
 public class Product implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String uuid;
 
     private String name;
@@ -30,7 +32,8 @@ public class Product implements Serializable {
 
     private BigDecimal price;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_uuid")
     private Store store;
 
