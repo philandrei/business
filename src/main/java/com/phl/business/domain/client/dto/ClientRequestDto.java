@@ -1,11 +1,11 @@
-package com.phl.business.domain.customer.dto;
+package com.phl.business.domain.client.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class CustomerRequestDto {
+public class ClientRequestDto {
 
     private String firstName;
 
