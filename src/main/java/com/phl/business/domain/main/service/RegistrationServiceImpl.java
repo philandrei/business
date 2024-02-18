@@ -17,10 +17,6 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    @Autowired
-    ClientRepository clientRepository;
-
     @Autowired
     UserRepository userRepository;
     @Override

@@ -35,15 +35,6 @@ public class StoreRestController {
     }
 
     //Store - Products
-    @PostMapping("/{storeId}/products")
-    public ResponseEntity<RestResponse> addStoreProducts(@PathVariable String storeId,
-                                                         @RequestBody List<ProductRequestDto> productRequestDtoList) {
-        return storeService.addStoreProducts(storeId, productRequestDtoList);
-    }
 
-    @GetMapping("/{storeId}/products")
-    public ResponseEntity<RestResponse> getAllStoreProducts(@PathVariable String storeId) {
-        return storeService.getStoreProducts(storeId);
-    }
 
 }

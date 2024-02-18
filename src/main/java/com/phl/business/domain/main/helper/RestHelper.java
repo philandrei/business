@@ -39,7 +39,7 @@ public class RestHelper {
                        .stream()
                        .filter(store -> store.getUuid().equals(storeId))
                        .findFirst()
-                       .orElseThrow(() -> new NoSuchElementException("Invalid storeId"));;
+                       .orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
     }
 
     protected Product getProductFromStore(Store store, String productId){

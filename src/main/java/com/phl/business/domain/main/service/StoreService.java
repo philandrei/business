@@ -10,8 +10,6 @@ import java.util.List;
 public interface StoreService {
 
     ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto);
-    ResponseEntity<RestResponse> addStoreProducts(String storeId, List<ProductRequestDto> productRequestDtos);
-    ResponseEntity<RestResponse> getStoreProducts(String storeId);
     ResponseEntity<RestResponse> updateStore(String storeId, StoreRequestDto storeRequestDto);
     ResponseEntity<RestResponse> deleteStore(String storeId);
 }

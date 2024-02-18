@@ -31,7 +31,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, MalformedJwtException {
-        if (request.getRequestURI().contains("/auth") || request.getRequestURI().contains("/nosession")) {
+        if (request.getRequestURI().contains("/auth") || request.getRequestURI().contains("/nosession") || request.getRequestURI().contains("/registrations")) {
             filterChain.doFilter(request, response);
             return;
         }

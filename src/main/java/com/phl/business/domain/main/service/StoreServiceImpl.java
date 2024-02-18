@@ -50,32 +50,6 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
     }
 
     @Override
-    public ResponseEntity<RestResponse> addStoreProducts(String storeId, List<ProductRequestDto> productRequestDtos) {
-        log.info("[addProducts] Start");
-        Client client = getLoggedClient();
-        Store store = getStoreFromClient(client,storeId);
-        log.info("[addProducts] Mapping List of ProductRequestDto to List of Product Model");
-        List<Product> products = productRequestDtos.stream().map(productRequestDto -> productMapper.productDtoToProduct(productRequestDto)).toList();
-        log.info("[addProducts] Adding Product to Store");
-        products.forEach(store::addProduct);
-        log.info("[addProducts] Saving Store with new Product/s");
-        storeRepository.save(store);
-        log.info("[addProducts] Done");
-        return buildSuccess(store);
-    }
-
-    @Override
-    public ResponseEntity<RestResponse> getStoreProducts(String storeId) {
-        log.info("[getStoreProducts] Start");
-        Client client = getLoggedClient();
-        Store store = getStoreFromClient(client,storeId);
-        log.info("[getStoreProducts] Get all products and assign to a variable");
-        List<Product> products = store.getProducts();
-        log.info("[getStoreProducts] Done");
-        return buildSuccess(products);
-    }
-
-    @Override
     public ResponseEntity<RestResponse> updateStore(String storeId, StoreRequestDto storeRequestDto) {
         Client client = getLoggedClient();
         Store store = getStoreFromClient(client,storeId);
