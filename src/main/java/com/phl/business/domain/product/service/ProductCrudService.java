@@ -6,7 +6,7 @@ import com.phl.business.domain.product.model.Product;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductCrudService {
 
     ProductResponseDto createProduct(ProductRequestDto productRequestDto);
     ProductResponseDto updateProduct(String uuid, ProductRequestDto productRequestDto);

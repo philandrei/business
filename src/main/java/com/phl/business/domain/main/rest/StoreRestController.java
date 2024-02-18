@@ -23,9 +23,21 @@ public class StoreRestController {
         return storeService.addStore(storeRequestDto);
     }
 
+    @PutMapping("/{storeId}")
+    public ResponseEntity<RestResponse> updateStore(@PathVariable String storeId,
+                                                    @RequestBody StoreRequestDto storeRequestDto) {
+        return storeService.updateStore(storeId, storeRequestDto);
+    }
+
+    @DeleteMapping("/{storeId}")
+    public ResponseEntity<RestResponse> deleteStore(@PathVariable String storeId) {
+        return storeService.deleteStore(storeId);
+    }
+
+    //Store - Products
     @PostMapping("/{storeId}/products")
     public ResponseEntity<RestResponse> addStoreProducts(@PathVariable String storeId,
-                                                    @RequestBody List<ProductRequestDto> productRequestDtoList) {
+                                                         @RequestBody List<ProductRequestDto> productRequestDtoList) {
         return storeService.addStoreProducts(storeId, productRequestDtoList);
     }
 

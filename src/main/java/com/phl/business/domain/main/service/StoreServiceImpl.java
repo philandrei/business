@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @Slf4j
-public class StoreServiceImpl extends RestHelper implements StoreService{
+public class StoreServiceImpl extends RestHelper implements StoreService {
 
     @Autowired
     ClientRepository clientRepository;
@@ -38,7 +38,7 @@ public class StoreServiceImpl extends RestHelper implements StoreService{
     public ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto) {
         log.info("[addStore] Start");
         String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
+        Client client = getLoggedClient();
         log.info("[addStore] Mapping StoreRequestDto to Store Model");
         Store store = storeMapper.storeDtoToStore(storeRequestDto);
         log.info("[addStore] Adding Store to client");
@@ -52,9 +52,8 @@ public class StoreServiceImpl extends RestHelper implements StoreService{
     @Override
     public ResponseEntity<RestResponse> addStoreProducts(String storeId, List<ProductRequestDto> productRequestDtos) {
         log.info("[addProducts] Start");
-        String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
-        Store store = client.getStore().stream().filter(store1 -> store1.getUuid().equals(storeId)).findFirst().orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
+        Client client = getLoggedClient();
+        Store store = getStoreFromClient(client,storeId);
         log.info("[addProducts] Mapping List of ProductRequestDto to List of Product Model");
         List<Product> products = productRequestDtos.stream().map(productRequestDto -> productMapper.productDtoToProduct(productRequestDto)).toList();
         log.info("[addProducts] Adding Product to Store");
@@ -68,12 +67,29 @@ public class StoreServiceImpl extends RestHelper implements StoreService{
     @Override
     public ResponseEntity<RestResponse> getStoreProducts(String storeId) {
         log.info("[getStoreProducts] Start");
-        String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid clientId"));
-        Store store = client.getStore().stream().filter(store1 -> store1.getUuid().equals(storeId)).findFirst().orElseThrow(() -> new NoSuchElementException("Invalid Store ID"));
+        Client client = getLoggedClient();
+        Store store = getStoreFromClient(client,storeId);
         log.info("[getStoreProducts] Get all products and assign to a variable");
         List<Product> products = store.getProducts();
         log.info("[getStoreProducts] Done");
         return buildSuccess(products);
+    }
+
+    @Override
+    public ResponseEntity<RestResponse> updateStore(String storeId, StoreRequestDto storeRequestDto) {
+        Client client = getLoggedClient();
+        Store store = getStoreFromClient(client,storeId);
+        store.updateFrom(storeRequestDto);
+        storeRepository.save(store);
+        return buildSuccess(store);
+    }
+
+    //Need to check why ent is not getting deleted obj/uuid
+    @Override
+    public ResponseEntity<RestResponse> deleteStore(String storeId) {
+        Client client = getLoggedClient();
+        Store store = getStoreFromClient(client,storeId);
+        storeRepository.delete(store);
+        return buildSuccess(true);
     }
 }

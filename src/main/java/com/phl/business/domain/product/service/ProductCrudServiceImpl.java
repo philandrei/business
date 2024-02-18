@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductCrudServiceImpl implements ProductCrudService {
     @Autowired
     private ProductRepository productRepository;
 

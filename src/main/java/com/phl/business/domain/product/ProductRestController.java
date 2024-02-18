@@ -3,7 +3,7 @@ package com.phl.business.domain.product;
 import com.phl.business.domain.product.dto.ProductRequestDto;
 import com.phl.business.domain.product.dto.ProductResponseDto;
 import com.phl.business.domain.product.model.Product;
-import com.phl.business.domain.product.service.ProductService;
+import com.phl.business.domain.product.service.ProductCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,30 +14,30 @@ import java.util.List;
 public class ProductRestController {
     
     @Autowired
-    ProductService productService;
+    ProductCrudService productCrudService;
     
     @PostMapping
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto){
-        return productService.createProduct(productRequestDto);
+        return productCrudService.createProduct(productRequestDto);
     }
 
     @PutMapping("/{uuid}")
     public ProductResponseDto updateProduct(@PathVariable String uuid, @RequestBody ProductRequestDto productRequestDto){
-        return productService.updateProduct(uuid, productRequestDto);
+        return productCrudService.updateProduct(uuid, productRequestDto);
     }
 
     @GetMapping
     public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+        return productCrudService.getAllProducts();
     }
 
     @GetMapping("/{uuid}")
     public Product getOneProduct(@PathVariable String uuid){
-        return productService.getOneProduct(uuid);
+        return productCrudService.getOneProduct(uuid);
     }
 
     @DeleteMapping("/{uuid}")
     public String deleteProduct(@PathVariable String uuid){
-        return productService.deleteProduct(uuid);
+        return productCrudService.deleteProduct(uuid);
     }
 }

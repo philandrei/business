@@ -35,7 +35,7 @@ public class Client implements Serializable {
     private String mobileNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Store> store;
+    private List<Store> stores;
 
     public Client updateFrom(ClientRequestDto clientRequestDto){
         this.firstName = clientRequestDto.getFirstName();
@@ -46,11 +46,11 @@ public class Client implements Serializable {
     }
 
     public void addStore(Store store){
-        if(this.store == null){
-            this.store = new ArrayList<>();
+        if(this.stores == null){
+            this.stores = new ArrayList<>();
         }
         store.setClient(this);
-        this.store.add(store);
+        this.stores.add(store);
     }
 
 }

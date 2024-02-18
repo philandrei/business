@@ -47,9 +47,8 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
 
     @Override
     public ResponseEntity<RestResponse> getAllStores() {
-        String clientId = getClientId();
-        Client client = clientRepository.findById(clientId).orElseThrow(() -> new NoSuchElementException("Invalid client ID"));
-        List<Store> stores = client.getStore();
+        Client client = getLoggedClient();
+        List<Store> stores = client.getStores();
         return buildSuccess(stores);
     }
 }
