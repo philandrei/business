@@ -70,7 +70,7 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
 
     @Override
     public ResponseEntity<RestResponse> findOneStore(String storeId) {
-        Store store = storeRepository.getOneByUUID(storeId).orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
+        Store store = storeRepository.findById(storeId).orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
         return buildSuccess(store);
     }
 }
