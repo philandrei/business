@@ -12,4 +12,5 @@ public interface StoreService {
     ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto);
     ResponseEntity<RestResponse> updateStore(String storeId, StoreRequestDto storeRequestDto);
     ResponseEntity<RestResponse> deleteStore(String storeId);
+    ResponseEntity<RestResponse> findOneStore(String storeId);
 }

@@ -1,7 +1,9 @@
 package com.phl.business.domain.user.model;
 
+import com.phl.business.base.AbstractEntity;
 import com.phl.business.domain.authentication.AuthUserDetails;
 import com.phl.business.domain.client.model.Client;
+import com.phl.business.domain.store.model.Store;
 import com.phl.business.domain.user.dto.UserRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,11 +19,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
+public class User extends AbstractEntity<User> {
 
     private String username;
 

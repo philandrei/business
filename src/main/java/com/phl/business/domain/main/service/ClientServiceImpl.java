@@ -49,6 +49,6 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
     public ResponseEntity<RestResponse> getAllStores() {
         Client client = getLoggedClient();
         List<Store> stores = client.getStores();
-        return buildSuccess(stores);
+        return buildSuccess(stores.stream().map(store -> storeMapper.storeToStoreResponseDto(store)));
     }
 }

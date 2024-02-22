@@ -1,6 +1,8 @@
 package com.phl.business.domain.product.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.phl.business.base.AbstractEntity;
+import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.product.dto.ProductRequestDto;
 import com.phl.business.domain.store.model.Store;
 import jakarta.persistence.*;
@@ -18,11 +20,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product implements Serializable {
+public class Product extends AbstractEntity<Product> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
 
     private String name;
 

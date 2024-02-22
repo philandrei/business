@@ -1,5 +1,6 @@
 package com.phl.business.domain.main.service;
 
+import com.phl.business.domain.client.mapper.ClientMapper;
 import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RestResponse;
@@ -32,7 +33,7 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
     StoreMapper storeMapper;
 
     @Autowired
-    ProductMapper productMapper;
+    ClientMapper clientMapper;
 
     @Override
     public ResponseEntity<RestResponse> addStore(StoreRequestDto storeRequestDto) {
@@ -46,7 +47,7 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
         log.info("[addStore] Saving client with new Store");
         clientRepository.save(client);
         log.info("[addStore] Done");
-        return buildSuccess(client);
+        return buildSuccess(storeMapper.storeToStoreResponseDto(store));
     }
 
     @Override
@@ -55,7 +56,7 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
         Store store = getStoreFromClient(client,storeId);
         store.updateFrom(storeRequestDto);
         storeRepository.save(store);
-        return buildSuccess(store);
+        return buildSuccess(storeMapper.storeToStoreResponseDto(store));
     }
 
     //Need to check why ent is not getting deleted obj/uuid
@@ -65,5 +66,11 @@ public class StoreServiceImpl extends RestHelper implements StoreService {
         Store store = getStoreFromClient(client,storeId);
         storeRepository.delete(store);
         return buildSuccess(true);
+    }
+
+    @Override
+    public ResponseEntity<RestResponse> findOneStore(String storeId) {
+        Store store = storeRepository.getOneByUUID(storeId).orElseThrow(() -> new NoSuchElementException("Invalid storeId"));
+        return buildSuccess(store);
     }
 }

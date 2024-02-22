@@ -5,6 +5,7 @@ import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RegistrationRequest;
 import com.phl.business.domain.main.dto.RestResponse;
 import com.phl.business.domain.main.helper.RestHelper;
+import com.phl.business.domain.user.mapper.UserMapper;
 import com.phl.business.domain.user.model.User;
 import com.phl.business.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
     PasswordEncoder passwordEncoder;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserMapper userMapper;
     @Override
     public ResponseEntity<RestResponse> registration(RegistrationRequest registrationRequest) {
         Client client = Client.builder()
@@ -34,7 +38,7 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
                             .build();
 
         userRepository.save(user);
-        return buildSuccess(user);
+        return buildSuccess(userMapper.userToUserResponseDto(user));
     }
 
 }

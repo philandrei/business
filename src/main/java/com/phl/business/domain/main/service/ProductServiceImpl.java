@@ -8,6 +8,7 @@ import com.phl.business.domain.product.dto.ProductRequestDto;
 import com.phl.business.domain.product.mapper.ProductMapper;
 import com.phl.business.domain.product.model.Product;
 import com.phl.business.domain.product.repository.ProductRepository;
+import com.phl.business.domain.store.mapper.StoreMapper;
 import com.phl.business.domain.store.model.Store;
 import com.phl.business.domain.store.repository.StoreRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,9 @@ public class ProductServiceImpl extends RestHelper implements ProductService {
     @Autowired
     ProductMapper productMapper;
 
+    @Autowired
+    StoreMapper storeMapper;
+
     @Override
     public ResponseEntity<RestResponse> updateProduct(String storeId, String productId, ProductRequestDto productRequestDto) {
         Client client = getLoggedClient();
@@ -38,7 +42,7 @@ public class ProductServiceImpl extends RestHelper implements ProductService {
         Product product = getProductFromStore(store,productId);
         product.updateFrom(productRequestDto);
         productRepository.save(product);
-        return buildSuccess(product);
+        return buildSuccess(productMapper.productToProductResponseDto(product));
     }
 
     // product ent is not deleting. obj/uuid
@@ -63,7 +67,7 @@ public class ProductServiceImpl extends RestHelper implements ProductService {
         log.info("[addProducts] Saving Store with new Product/s");
         storeRepository.save(store);
         log.info("[addProducts] Done");
-        return buildSuccess(store);
+        return buildSuccess(products.stream().map(product -> productMapper.productToProductResponseDto(product)));
     }
 
     @Override
@@ -74,6 +78,6 @@ public class ProductServiceImpl extends RestHelper implements ProductService {
         log.info("[getStoreProducts] Get all products and assign to a variable");
         List<Product> products = store.getProducts();
         log.info("[getStoreProducts] Done");
-        return buildSuccess(products);
+        return buildSuccess(products.stream().map(product -> productMapper.productToProductResponseDto(product)));
     }
 }

@@ -34,6 +34,11 @@ public class StoreRestController {
         return storeService.deleteStore(storeId);
     }
 
+    @GetMapping("/{storeId}")
+    public  ResponseEntity<RestResponse> getOneStore(@PathVariable String storeId){
+        return storeService.findOneStore(storeId);
+    }
+
     //Store - Products
 
 

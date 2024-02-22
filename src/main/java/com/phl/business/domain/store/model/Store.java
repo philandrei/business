@@ -1,6 +1,7 @@
 package com.phl.business.domain.store.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.phl.business.base.AbstractEntity;
 import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.product.model.Product;
 import com.phl.business.domain.store.dto.StoreRequestDto;
@@ -20,11 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
+public class Store extends AbstractEntity<Store> {
 
     private String name;
 
