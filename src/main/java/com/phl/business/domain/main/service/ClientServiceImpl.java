@@ -3,6 +3,7 @@ package com.phl.business.domain.main.service;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.phl.business.domain.authentication.AuthUserDetails;
+import com.phl.business.domain.client.dto.ClientRequestDto;
 import com.phl.business.domain.client.model.Client;
 import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RestResponse;
@@ -50,5 +51,18 @@ public class ClientServiceImpl extends RestHelper implements ClientService {
         Client client = getLoggedClient();
         List<Store> stores = client.getStores();
         return buildSuccess(stores.stream().map(store -> storeMapper.storeToStoreResponseDto(store)));
+    }
+
+    @Override
+    public ResponseEntity<RestResponse> updateClient(ClientRequestDto clientRequestDto) {
+        Client client = getLoggedClient();
+        client.updateFrom(clientRequestDto);
+        clientRepository.save(client);
+        return buildSuccess(client);
+    }
+
+    @Override
+    public ResponseEntity<RestResponse> findOneClient() {
+        return buildSuccess(getLoggedClient());
     }
 }
