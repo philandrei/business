@@ -1,5 +1,6 @@
 package com.phl.business.domain.main.service;
 
+import com.phl.business.domain.client.dto.ClientRequestDto;
 import com.phl.business.domain.main.dto.RestResponse;
 import com.phl.business.domain.product.dto.ProductRequestDto;
 import com.phl.business.domain.store.dto.StoreRequestDto;
@@ -11,4 +12,7 @@ import java.util.List;
 public interface ClientService {
 
     ResponseEntity<RestResponse> getAllStores();
+    ResponseEntity<RestResponse> updateClient(ClientRequestDto clientRequestDto);
+    ResponseEntity<RestResponse> findOneClient();
+
 }
