@@ -5,6 +5,7 @@ import com.phl.business.domain.client.repository.ClientRepository;
 import com.phl.business.domain.main.dto.RegistrationRequest;
 import com.phl.business.domain.main.dto.RestResponse;
 import com.phl.business.domain.main.helper.RestHelper;
+import com.phl.business.domain.token.TokenService;
 import com.phl.business.domain.user.mapper.UserMapper;
 import com.phl.business.domain.user.model.User;
 import com.phl.business.domain.user.repository.UserRepository;
@@ -23,6 +24,9 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    TokenService tokenService;
     @Override
     public ResponseEntity<RestResponse> registration(RegistrationRequest registrationRequest) {
         Client client = Client.builder()
@@ -38,6 +42,7 @@ public class RegistrationServiceImpl extends RestHelper implements RegistrationS
                             .build();
 
         userRepository.save(user);
+        tokenService.createInitialTokenForClient(user.getUuid());
         return buildSuccess(userMapper.userToUserResponseDto(user));
     }
 

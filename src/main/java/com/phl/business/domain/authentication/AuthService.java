@@ -1,6 +1,7 @@
 package com.phl.business.domain.authentication;
 
 import com.phl.business.domain.main.dto.RestResponse;
+import com.phl.business.domain.token.TokenService;
 import com.phl.business.domain.user.model.User;
 import com.phl.business.domain.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,9 @@ public class AuthService {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    @Autowired
+    private TokenService tokenService;
+
     public ResponseEntity<?> login(AuthRequest authRequest){
 
         try {
@@ -44,7 +48,7 @@ public class AuthService {
         AuthUserDetails authUserDetails = new AuthUserDetails(user);
         String accessToken = userAuthenticationService.generateAccessToken(authUserDetails);
         String refreshToken = userAuthenticationService.generateRefreshToken(authUserDetails);
-
+        tokenService.updateClientToken(user.getUuid(),accessToken,refreshToken);
         return ResponseEntity.ok(AuthResponse.builder()
                                          .accessToken(accessToken)
                                          .refreshToken(refreshToken)
