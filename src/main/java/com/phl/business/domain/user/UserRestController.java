@@ -1,7 +1,10 @@
 package com.phl.business.domain.user;
 
+import com.phl.business.domain.user.dto.UserRequestDto;
+import com.phl.business.domain.user.dto.UserResponseDto;
+import com.phl.business.domain.user.model.User;
+import com.phl.business.domain.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,13 +17,13 @@ public class UserRestController {
     UserService userService;
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto){
-        return userService.createUser(userDto);
+    public UserResponseDto createUser(@RequestBody UserRequestDto userRequestDto){
+        return userService.createUser(userRequestDto);
     }
 
     @PutMapping("/{uuid}")
-    public UserDto updateUser(@PathVariable String uuid,@RequestBody UserDto userDto){
-        return userService.updateUser(uuid,userDto);
+    public UserResponseDto updateUser(@PathVariable String uuid, @RequestBody UserRequestDto userRequestDto){
+        return userService.updateUser(uuid, userRequestDto);
     }
 
     @GetMapping
