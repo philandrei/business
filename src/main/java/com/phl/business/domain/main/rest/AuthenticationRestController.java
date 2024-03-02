@@ -18,6 +18,7 @@ public class AuthenticationRestController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        System.out.println("test");
         return authService.login(request);
     }
 }
